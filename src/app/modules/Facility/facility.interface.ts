@@ -1,5 +1,5 @@
-name: 
-description: 
-pricePerHour: 
-location: 
-isDeleted:
+// name: 
+// description: 
+// pricePerHour: 
+// location: 
+// isDeleted:

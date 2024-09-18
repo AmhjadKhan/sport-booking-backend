@@ -1,7 +1,7 @@
-date: 
-startTime: 
-endTime: 
-user: 
-facility: 
-payableAmount: 
-isBooked: 
+// date: 
+// startTime: 
+// endTime: 
+// user: 
+// facility: 
+// payableAmount: 
+// isBooked: 
