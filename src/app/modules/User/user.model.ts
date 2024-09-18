@@ -1,12 +1,13 @@
 import { Schema, model } from 'mongoose';
-import { TUser } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 import validator from 'validator';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<TUser, UserModel>({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -20,6 +21,7 @@ const userSchema = new Schema<TUser>({
   password: {
     type: String,
     required: true,
+    select: false,
   },
   phone: { type: String, required: true },
   role: {
@@ -29,4 +31,35 @@ const userSchema = new Schema<TUser>({
   address: { type: String, required: true },
 });
 
-export const UserModel = model<TUser>('User', userSchema);
+// pre save middleware / hook
+userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this; // current document
+  // hashing password and save into DB
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(
+      user.password,
+      Number(config.bcrypt_salt_rounds),
+    );
+  }
+  next();
+});
+
+// set empty "" after saving password
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
+
+userSchema.statics.isUsersExistsByCustomId = async function (email: string) {
+  return await User.findOne({ email }).select('+password');
+};
+
+userSchema.statics.isPasswordMatched = async function (
+  plainTextPassword,
+  hashedPassword,
+) {
+  return await bcrypt.compare(plainTextPassword, hashedPassword);
+};
+
+export const User = model<TUser, UserModel>('User', userSchema);
