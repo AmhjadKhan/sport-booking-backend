@@ -13,6 +13,7 @@ const moduleRoutes = [
     path: '/facility',
     route: FacilityRoutes,
   },
+  
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

@@ -7,7 +7,7 @@ class QueryBuilder<T> {
   constructor(modelQuery: Query<T[], T>, query: Record<string, unknown>) {
     this.modelQuery = modelQuery;
     this.query = query;
-  }
+  } 
 
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
