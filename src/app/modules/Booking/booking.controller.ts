@@ -34,16 +34,6 @@ const getAllBookingByUser = catchAsync(async (req, res) => {
     user,
     req.query,
   );
-
-  // if (result && result?.length === 0) {
-  //   return sendResponse(res, {
-  //     statusCode: httpStatus.NOT_FOUND,
-  //     success: false,
-  //     message: 'No Data Found',
-  //     data: result,
-  //   });
-  // }
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
