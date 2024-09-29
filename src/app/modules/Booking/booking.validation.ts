@@ -10,7 +10,6 @@ const timeStringSchema = z.string().refine(
   },
 );
 
-// Date format validation (YYYY-MM-DD)
 const dateStringSchema = z.string().refine(
   (date) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;

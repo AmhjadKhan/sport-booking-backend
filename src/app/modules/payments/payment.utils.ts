@@ -12,7 +12,7 @@ type TPaymentData = {
 
 export const initialPayment = async (paymentData: TPaymentData) => {
   try {
-    const response = await axios.post(config.payment_url!, {
+    const response = await axios.post(config.payment_url!,{
       store_id: config.store_id,
       signature_key: config.signature_key,
       tran_id: paymentData.transactionId,

@@ -23,7 +23,6 @@ const confirmationService = async (transactionId: string, status: string) => {
   const filePath = join(__dirname, '../../../../public/confirmation.html');
   let template = readFileSync(filePath, 'utf-8');
 
-  //   template = template.replace('{{message}}', message);
   template = template.replace(/{{message}}/g, message);
 
   return template;
