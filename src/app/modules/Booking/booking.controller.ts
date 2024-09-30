@@ -4,6 +4,7 @@ import sendResponse from '../../utils/sendResponse';
 import { bookingServices } from './booking.service';
 import { JwtPayload } from 'jsonwebtoken';
 import { Request, Response } from 'express';
+import { User } from '../User/user.model';
 
 const createBooking = catchAsync(async (req, res) => {
   const { userEmail } = req.user;
@@ -45,8 +46,8 @@ const getAllBookingByUser = catchAsync(async (req, res) => {
 
 const deleteBookingByUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  // const user: JwtPayload = req.user;
-  const result = await bookingServices.deleteBookingByUserFromDB(id, user);
+  const user: JwtPayload = req.user;
+  const result = await bookingServices.deleteBookingByUserFromDB(id,user);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
