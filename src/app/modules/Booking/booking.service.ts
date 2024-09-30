@@ -12,11 +12,13 @@ const createBookingIntoDB = async (
   userEmail: string,
   payload: Partial<TBooking>,
 ) => {
+  // console.log(payload)
   const { facility, startTime, endTime, date } = payload;
   const startDateTime = new Date(`${date}T${startTime}`);
   const endDateTime = new Date(`${date}T${endTime}`);
 
   const isFacilityExist = await Facility.findById(facility);
+  // console.log(isFacilityExist)
   if (!isFacilityExist || isFacilityExist.isDeleted === true) {
     throw new AppError(httpStatus.NOT_FOUND, 'Facility not found');
   }
@@ -51,8 +53,9 @@ const createBookingIntoDB = async (
   }
 
   const user = await User.isUsersExistsByCustomId(userEmail);
+  console.log(userEmail)
   const userId = user?._id;
-
+  console.log(user,userId)
   const transactionId = `TXN-${Date.now()}`;
 
   const result = await Booking.create({

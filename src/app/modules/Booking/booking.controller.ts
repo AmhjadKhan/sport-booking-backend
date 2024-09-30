@@ -34,6 +34,7 @@ const getAllBookingByUser = catchAsync(async (req, res) => {
     user,
     req.query,
   );
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -44,7 +45,7 @@ const getAllBookingByUser = catchAsync(async (req, res) => {
 
 const deleteBookingByUser = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const user: JwtPayload = req.user;
+  // const user: JwtPayload = req.user;
   const result = await bookingServices.deleteBookingByUserFromDB(id, user);
   sendResponse(res, {
     statusCode: httpStatus.OK,
